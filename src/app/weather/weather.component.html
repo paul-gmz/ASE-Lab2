@@ -9,18 +9,19 @@
           <label>City</label>
         </div>
         <div class="col-sm">
-          <input type="text" name="city" />
+          <input [(ngModel)]="city" type="text" name="city" />
         </div>
         <div class="col-sm">
           <label>State</label>
         </div>
         <div class="col-sm">
-          <input type="text" name="state" />
+          <input [(ngModel)]="state" type="text" name="state" />
         </div>
       </div>
 
       <div class="row justify-content-end mt-2">
         <button
+          (click)="getWeatherData(city, state)"
           id="buttonSerach"
           type="button"
           style="margin:1em"
