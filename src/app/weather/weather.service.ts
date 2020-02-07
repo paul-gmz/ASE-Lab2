@@ -1,31 +1,36 @@
-import { Injectable } from "@angular/core";
-import { WeatherData } from "./weatherData";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError, tap, map } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { CurrentWeather, HourlyWeather } from './weather';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap, map } from 'rxjs/operators';
 
 @Injectable()
 export class WeatherService {
-  private apiUrl: string = "https://api.openweathermap.org/data/2.5/weather?q=";
-  private apiKey: string = "ad549223cd4887aaf3b228e8a368abdc";
-  private url: string = "";
+  private currentUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
+  private hourlyUrl = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+  private urlParams = ',US&units=imperial&appid=';
+  private apiKey = 'ad549223cd4887aaf3b228e8a368abdc';
+  private url = '';
   constructor(private http: HttpClient) {}
 
-  getCurrentWeatherByCity(city: string): Observable<WeatherData> {
-    this.url = `${this.apiUrl}${city}&units=imperial&appid=${this.apiKey}`;
-    return this.http.get<WeatherData>(this.url).pipe(
+  getCurrentWeather(location: string): Observable<CurrentWeather> {
+    this.url = `${this.currentUrl}${location}${this.urlParams}${this.apiKey}`;
+    return this.http.get<CurrentWeather>(this.url).pipe(
       map(res => {
-        return res["main"];
+        return res['main'];
       }),
-      tap(data => console.log("All Data" + JSON.stringify(data))),
+      tap(data => console.log('All Data' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
 
-  getCurrentWeatherByState(state: string): Observable<WeatherData> {
-    this.url = `${this.apiUrl}${state}&units=imperial&appid=${this.apiKey}`;
-    return this.http.get<WeatherData>(this.url).pipe(
-      tap(data => console.log("All Data" + JSON.stringify(data))),
+  getHourlyWeather(location: string): Observable<HourlyWeather> {
+    this.url = `${this.hourlyUrl}${location}${this.urlParams}${this.apiKey}`;
+    return this.http.get<HourlyWeather>(this.url).pipe(
+      map(res => {
+        return res['main'];
+      }),
+      tap(data => console.log('All Data' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
