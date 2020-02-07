@@ -10,12 +10,11 @@ export class WeatherService {
   private hourlyUrl = 'http://api.openweathermap.org/data/2.5/forecast?q=';
   private urlParams = ',US&units=imperial&appid=';
   private apiKey = 'ad549223cd4887aaf3b228e8a368abdc';
-  private url = '';
   constructor(private http: HttpClient) {}
 
   getCurrentWeather(location: string): Observable<CurrentWeather> {
-    this.url = `${this.currentUrl}${location}${this.urlParams}${this.apiKey}`;
-    return this.http.get<CurrentWeather>(this.url).pipe(
+    const url = `${this.currentUrl}${location}${this.urlParams}${this.apiKey}`;
+    return this.http.get<CurrentWeather>(url).pipe(
       map(res => {
         return res['main'];
       }),
@@ -24,11 +23,12 @@ export class WeatherService {
     );
   }
 
-  getHourlyWeather(location: string): Observable<HourlyWeather> {
-    this.url = `${this.hourlyUrl}${location}${this.urlParams}${this.apiKey}`;
-    return this.http.get<HourlyWeather>(this.url).pipe(
+  getHourlyWeather(location: string): Observable<HourlyWeather[]> {
+    const hourly = [];
+    const url = `${this.hourlyUrl}${location}${this.urlParams}${this.apiKey}`;
+    return this.http.get<HourlyWeather[]>(url).pipe(
       map(res => {
-        return res['main'];
+        return res['list'];
       }),
       tap(data => console.log('All Data' + JSON.stringify(data))),
       catchError(this.handleError)
