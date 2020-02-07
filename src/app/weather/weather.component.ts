@@ -1,53 +1,55 @@
-import { Component, OnInit } from "@angular/core";
-import { createOfflineCompileUrlResolver } from "@angular/compiler";
-import { State } from "./state";
-import { WeatherService } from "./weather.service";
-import { WeatherData } from "./weatherData";
-import { Observable, Subject } from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { State } from './state';
+import { WeatherService } from './weather.service';
+import { CurrentWeather, HourlyWeather } from './weather';
 
 @Component({
-  selector: "app-weather",
-  templateUrl: "./weather.component.html",
-  styleUrls: ["./weather.component.css"],
+  selector: 'app-weather',
+  templateUrl: './weather.component.html',
+  styleUrls: ['./weather.component.css'],
   providers: [WeatherService]
 })
+
 export class WeatherComponent implements OnInit {
-  city: string = "";
-  state: string = "";
-  currWeatherdata: WeatherData;
+  city = '';
+  state = '';
+  location = '';
+  currentWeather: CurrentWeather;
+  hourlyWeather: HourlyWeather;
   errorMsg: string;
-  showWeatherData: boolean = false;
-  clickStream: Observable<any> = new Subject<any>();
-  isCityData: boolean = false;
+  showWeatherData = false;
 
   constructor(private weatherService: WeatherService) {}
   ngOnInit(): void {}
 
-  handleClick(event: Event) {
-    if (this.city != "" || this.state != "") {
-      if (this.city != "") {
-        this.isCityData = true;
-        this.weatherService.getCurrentWeatherByCity(this.city).subscribe(
-          cwd => (this.currWeatherdata = cwd),
-          error => (this.errorMsg = <any>error)
-        );
-        this.showWeatherData = true;
-        console.log(this.currWeatherdata);
-      } else {
-        this.isCityData = false;
-        if (this.state.length == 2) {
-          let s = new State(this.state);
-          this.state = s.getState(this.state);
-        }
-        console.log(this.state);
-        this.weatherService.getCurrentWeatherByCity(this.state).subscribe(
-          cwd => (this.currWeatherdata = cwd),
-          error => (this.errorMsg = <any>error)
-        );
-        this.showWeatherData = true;
-      }
-    } else {
-      alert("Fill at least one textbox");
+  getWeather() {
+    if (this.city.trim() === '' && this.state.trim() === '') {
+      alert('Please enter a city or state');
+      return;
     }
+
+    if (this.city !== '') {
+      this.location = this.city;
+      this.city = '';
+
+    } else {
+      if (this.state.length === 2) {
+        this.location = State.getState(this.state);
+      } else {
+        this.location = this.state;
+      }
+      this.state = '';
+    }
+
+    console.log(this.location);
+    this.weatherService.getCurrentWeather(this.location).subscribe(
+      cwd => (this.currentWeather = cwd),
+      error => (this.errorMsg = error as any)
+    );
+    this.weatherService.getHourlyWeather(this.location).subscribe(
+      cwd => (this.hourlyWeather = cwd),
+      error => (this.errorMsg = error as any)
+    );
+    this.showWeatherData = true;
   }
 }
