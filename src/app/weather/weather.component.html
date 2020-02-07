@@ -9,7 +9,7 @@
         <div class="row mt-2">
           <div class="col-sm" style="display: flex; justify-content: center;">
             <label>City:
-              <input [(ngModel)]="city" type="text" name="city" style="margin-top: 3px" />
+              <input [(ngModel)]="city" type="text" name="city" style="margin-top: 3px;"/>
             </label>
           </div>
 
@@ -27,8 +27,8 @@
         </div>
 
         <div class="card text-white bg-dark mb-3 center" style="max-width: 50em; margin-top: 25px" *ngIf="showWeatherData">
-          <div class="card-header center">
-            Weather in {{ location }}
+          <div class="card-header center" style="font-size: 20px">
+            Current Weather in {{ location }}
           </div>
 
           <div class="card-body">
@@ -61,6 +61,41 @@
               </tbody>
             </table>
           </div>
+
+          <div class="card-header center" style="font-size: 20px">
+            Forecast
+          </div>
+
+          <div class="card-forecast" *ngIf="showHourlyData">
+          <ul style="width: 600px; margin: auto;">
+            <li *ngFor="let forecast of hourlyWeather"
+                style="color: #5e5e5e; text-align: center; list-style: none">
+
+              <div class="row-list">
+                <div class="column-list left">
+                  <div class="list-header">
+                    <b>{{forecast.time}}</b>
+                  </div>
+                </div>
+
+                <div class="column-list middle">
+                  <div class="image">
+                    <img src="assets/images/{{forecast.image}}" alt="forcast image"> <br>
+                    {{forecast.weather}}
+                  </div>
+                </div>
+
+                <div class="column-list right">
+                  <div class="content">
+                    Temperature: <b>{{forecast.temp + '°F'}}</b> <br>
+                    Feels Like: <b>{{forecast.feels_like + '°F'}}</b> <br>
+                    Humidity: <b>{{forecast.humidity + '%'}}</b> <br>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
         </div>
       </div>
     </div>

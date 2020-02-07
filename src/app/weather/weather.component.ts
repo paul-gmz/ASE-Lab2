@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { State } from './state';
 import { WeatherService } from './weather.service';
-import { CurrentWeather, HourlyWeather } from './weather';
+import { CurrentWeather } from './weather';
 
 @Component({
   selector: 'app-weather',
@@ -15,9 +15,10 @@ export class WeatherComponent implements OnInit {
   state = '';
   location = '';
   currentWeather: CurrentWeather;
-  hourlyWeather: HourlyWeather;
+  hourlyWeather = [];
   errorMsg: string;
   showWeatherData = false;
+  showHourlyData = false;
 
   constructor(private weatherService: WeatherService) {}
   ngOnInit(): void {}
@@ -43,13 +44,39 @@ export class WeatherComponent implements OnInit {
 
     console.log(this.location);
     this.weatherService.getCurrentWeather(this.location).subscribe(
-      cwd => (this.currentWeather = cwd),
+      cwd => {
+        this.currentWeather = cwd;
+        this.showWeatherData = true;
+      },
       error => (this.errorMsg = error as any)
     );
     this.weatherService.getHourlyWeather(this.location).subscribe(
-      cwd => (this.hourlyWeather = cwd),
+      data => {
+        this.extractHourly(data);
+        this.showHourlyData = true;
+      },
       error => (this.errorMsg = error as any)
     );
-    this.showWeatherData = true;
+  }
+
+  extractHourly(data) {
+    for (let i = 0; i < 5; i++) {
+      this.hourlyWeather.push({ time: data[i].dt_txt,
+        weather: data[i].weather[0].main,
+        image: 'sunny.png',
+        temp: data[i].main.temp,
+        feels_like: data[i].main.feels_like,
+        humidity: data[i].main.humidity
+      });
+      if (this.hourlyWeather[i].weather === 'Clouds') {
+        this.hourlyWeather[i].image = 'cloudy.png';
+      } else if (this.hourlyWeather[i].weather === 'Rain' || this.hourlyWeather[i].weather === 'Drizzle') {
+        this.hourlyWeather[i].image = 'rain.png';
+      } else if (this.hourlyWeather[i].weather === 'Thunderstorm') {
+        this.hourlyWeather[i].image = 'storm.png';
+      } else if (this.hourlyWeather[i].weather === 'Snow') {
+        this.hourlyWeather[i].image = 'snow.png';
+      }
+    }
   }
 }

@@ -18,3 +18,65 @@
 .center {
   margin: 0 auto;
 }
+
+.card-forecast {
+  background-color: white;
+  width: 625px;
+  border-radius: 5px;
+  margin: auto auto 20px;
+}
+
+ul {
+  padding: 0;
+}
+
+.column-list {
+  float: left;
+  height: 80px;
+  width: 33.33%;
+}
+
+.row-list:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.left {
+  width: 25%;
+  border-right: #004ca6 solid 1px;
+  background: rgba(182, 221, 244, 0.49);
+}
+
+.middle {
+  width: 30%;
+}
+
+.right {
+  width: 40%;
+}
+
+.list-header {
+  padding-top: 20px;
+}
+
+.image {
+  padding-top: 5px;
+}
+
+.content {
+  padding-top: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+li {
+  border: #004ca6 solid 1px;
+  border-radius: 5px;
+  background: rgba(189, 232, 255, 0.2);
+  margin: 10px;
+}
+
+
