@@ -20,7 +20,7 @@ export class WeatherComponent implements OnInit {
   errorMsg: string;
   showWeatherData = false;
   showHourlyData = false;
-  forcastDate = '';
+  forecastDate = '';
 
   constructor(private weatherService: WeatherService, public datepipe: DatePipe) {}
   ngOnInit(): void {}
@@ -95,6 +95,6 @@ export class WeatherComponent implements OnInit {
         this.hourlyWeather[i].image = 'snow.png';
       }
     }
-    this.forcastDate = this.datepipe.transform(date, 'MM/dd/yyyy');
+    this.forecastDate = this.datepipe.transform(date, 'MM/dd/yyyy');
   }
 }
