@@ -22,8 +22,8 @@
 .card-forecast {
   background-color: white;
   width: 625px;
-  margin: auto;
   border-radius: 5px;
+  margin: auto auto 20px;
 }
 
 ul {
@@ -44,6 +44,8 @@ ul {
 
 .left {
   width: 25%;
+  border-right: #004ca6 solid 1px;
+  background: rgba(182, 221, 244, 0.49);
 }
 
 .middle {
@@ -55,18 +57,15 @@ ul {
 }
 
 .list-header {
-  border-right: #004ca6 solid 1px;
-  padding-top: 25px;
-  height: 55px;
-  background: rgba(182, 221, 244, 0.49);
+  padding-top: 20px;
 }
 
 .image {
-  padding-top: 10px;
+  padding-top: 5px;
 }
 
 .content {
-  padding-top: 15px;
+  padding-top: 5px;
 }
 
 .hidden {
