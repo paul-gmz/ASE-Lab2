@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { State } from './state';
 import { WeatherService } from './weather.service';
 import { CurrentWeather } from './weather';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-weather',
@@ -19,8 +20,9 @@ export class WeatherComponent implements OnInit {
   errorMsg: string;
   showWeatherData = false;
   showHourlyData = false;
+  forcastDate = '';
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(private weatherService: WeatherService, public datepipe: DatePipe) {}
   ngOnInit(): void {}
 
   getWeather() {
@@ -46,6 +48,16 @@ export class WeatherComponent implements OnInit {
     this.weatherService.getCurrentWeather(this.location).subscribe(
       cwd => {
         this.currentWeather = cwd;
+        this.currentWeather.image = 'sunny.png';
+        if (this.currentWeather.description === 'Clouds') {
+          this.currentWeather.image = 'cloudy.png';
+        } else if (this.currentWeather.description === 'Rain' || this.currentWeather.description === 'Drizzle') {
+          this.currentWeather.image = 'rain.png';
+        } else if (this.currentWeather.description === 'Thunderstorm') {
+          this.currentWeather.image = 'storm.png';
+        } else if (this.currentWeather.description === 'Snow') {
+          this.currentWeather.image = 'snow.png';
+        }
         this.showWeatherData = true;
       },
       error => (this.errorMsg = error as any)
@@ -60,6 +72,7 @@ export class WeatherComponent implements OnInit {
   }
 
   extractHourly(data) {
+    let date;
     for (let i = 0; i < 5; i++) {
       this.hourlyWeather.push({ time: data[i].dt_txt,
         weather: data[i].weather[0].main,
@@ -68,6 +81,10 @@ export class WeatherComponent implements OnInit {
         feels_like: data[i].main.feels_like,
         humidity: data[i].main.humidity
       });
+
+      date = new Date(this.hourlyWeather[i].time);
+      this.hourlyWeather[i].time = this.datepipe.transform(date, 'h a');
+
       if (this.hourlyWeather[i].weather === 'Clouds') {
         this.hourlyWeather[i].image = 'cloudy.png';
       } else if (this.hourlyWeather[i].weather === 'Rain' || this.hourlyWeather[i].weather === 'Drizzle') {
@@ -78,5 +95,6 @@ export class WeatherComponent implements OnInit {
         this.hourlyWeather[i].image = 'snow.png';
       }
     }
+    this.forcastDate = this.datepipe.transform(date, 'MM/dd/yyyy');
   }
 }

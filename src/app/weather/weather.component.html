@@ -21,14 +21,26 @@
 
           <div class="col-sm" style="display: flex; justify-content: center;">
             <button (click)="getWeather()" id="buttonSerach" type="button"
-                    style="margin:0" class="btn btn-primary">Look up
+                    style="margin:0" class="btn btn-primary">Search
             </button>
           </div>
         </div>
 
         <div class="card text-white bg-dark mb-3 center" style="max-width: 50em; margin-top: 25px" *ngIf="showWeatherData">
-          <div class="card-header center" style="font-size: 20px">
-            Current Weather in {{ location }}
+          <div class="card-header center">
+
+            <div class="row-list" style="width: 30em">
+              <div class="column-list" style="width: 80%; font-size: 20px; padding-top: 25px">
+                  Current Weather in {{ location }}
+              </div>
+
+              <div class="column-list" style="width: 20%;">
+                <div class="image" style="text-align: center">
+                  <img src="assets/images/{{currentWeather.image}}" alt="forecast image"> <br>
+                  {{currentWeather.description}}
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="card-body">
@@ -63,11 +75,11 @@
           </div>
 
           <div class="card-header center" style="font-size: 20px">
-            Forecast
+            Forecast for {{forcastDate}}
           </div>
 
           <div class="card-forecast" *ngIf="showHourlyData">
-          <ul style="width: 600px; margin: auto;">
+          <ul style="width: 34em; margin: auto;">
             <li *ngFor="let forecast of hourlyWeather"
                 style="color: #5e5e5e; text-align: center; list-style: none">
 
@@ -80,16 +92,24 @@
 
                 <div class="column-list middle">
                   <div class="image">
-                    <img src="assets/images/{{forecast.image}}" alt="forcast image"> <br>
+                    <img src="assets/images/{{forecast.image}}" alt="forecast image"> <br>
                     {{forecast.weather}}
+                  </div>
+                </div>
+
+                <div class="column-list middle-right">
+                  <div class="content">
+                    Temperature: <br>
+                    Feels Like: <br>
+                    Humidity: <br>
                   </div>
                 </div>
 
                 <div class="column-list right">
                   <div class="content">
-                    Temperature: <b>{{forecast.temp + '°F'}}</b> <br>
-                    Feels Like: <b>{{forecast.feels_like + '°F'}}</b> <br>
-                    Humidity: <b>{{forecast.humidity + '%'}}</b> <br>
+                    <b>{{forecast.temp + '°F'}}</b> <br>
+                    <b>{{forecast.feels_like + '°F'}}</b> <br>
+                    <b>{{forecast.humidity + '%'}}</b> <br>
                   </div>
                 </div>
               </div>

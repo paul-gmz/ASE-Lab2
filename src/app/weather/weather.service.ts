@@ -16,7 +16,9 @@ export class WeatherService {
     const url = `${this.currentUrl}${location}${this.urlParams}${this.apiKey}`;
     return this.http.get<CurrentWeather>(url).pipe(
       map(res => {
-        return res['main'];
+        const weather = res['main'];
+        weather.description = res['weather'][0].main;
+        return weather;
       }),
       tap(data => console.log('All Data' + JSON.stringify(data))),
       catchError(this.handleError)
