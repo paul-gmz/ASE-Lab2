@@ -1,4 +1,4 @@
-.container {
+.container-xl {
   margin-top: 3em;
 }
 
@@ -13,4 +13,8 @@
 
 .card-body {
   font-size: 15px;
+}
+
+.center {
+  margin: 0 auto;
 }

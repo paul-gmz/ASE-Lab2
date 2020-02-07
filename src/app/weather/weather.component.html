@@ -1,34 +1,79 @@
-<div class="container">
+<div class="container-xl">
   <div class="card border-dark mb-3">
     <div class="card-header h4">
       Weather Look Up
     </div>
     <div class="card-body bg-light">
-      <div class="row mt-2">
-        <div class="col-sm">
-          <label>City</label>
+      <div class="container-fluid">
+        <div class="row mt-2">
+          <div class="col-sm">
+            <label>City</label>
+          </div>
+          <div class="col-sm">
+            <input [(ngModel)]="city" type="text" name="city" />
+          </div>
+          <div class="col-sm">
+            <label>State</label>
+          </div>
+          <div class="col-sm">
+            <input [(ngModel)]="state" type="text" name="state" />
+          </div>
         </div>
-        <div class="col-sm">
-          <input [(ngModel)]="city" type="text" name="city" />
-        </div>
-        <div class="col-sm">
-          <label>State</label>
-        </div>
-        <div class="col-sm">
-          <input [(ngModel)]="state" type="text" name="state" />
-        </div>
-      </div>
 
-      <div class="row justify-content-end mt-2">
-        <button
-          (click)="getWeatherData(city, state)"
-          id="buttonSerach"
-          type="button"
-          style="margin:1em"
-          class="btn btn-primary"
+        <div class="row justify-content-end mt-2">
+          <button
+            (click)="handleClick($event)"
+            id="buttonSerach"
+            type="button"
+            style="margin:1em"
+            class="btn btn-primary"
+          >
+            Look up
+          </button>
+        </div>
+
+        <div
+          class="card text-white bg-dark mb-3 center"
+          style="max-width: 50em;"
+          *ngIf="showWeatherData"
         >
-          Look up
-        </button>
+          <div class="card-header center" *ngIf="isCityData == true">
+            Weather in {{ city }}
+          </div>
+          <div class="card-header center" *ngIf="isCityData == false">
+            Weather in {{ state }}
+          </div>
+          <div class="card-body">
+            <table class="table table-dark">
+              <tbody>
+                <tr>
+                  <th scope="row">Temparature</th>
+                  <td>{{ currWeatherdata.temp }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Feels Like</th>
+                  <td>{{ currWeatherdata.feels_like }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Minimum Temparature</th>
+                  <td>{{ currWeatherdata.temp_min }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Maximum Temparature</th>
+                  <td>{{ currWeatherdata.temp_max }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Pressure</th>
+                  <td>{{ currWeatherdata.pressure }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Humidity</th>
+                  <td>{{ currWeatherdata.humidity }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
