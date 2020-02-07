@@ -63,10 +63,10 @@
           </div>
 
           <div class="card-header center" style="font-size: 20px">
-            Hourly Forecast
+            Forecast
           </div>
 
-          <div class="card-forecast">
+          <div class="card-forecast" *ngIf="showHourlyData">
           <ul style="width: 600px; margin: auto;">
             <li *ngFor="let forecast of hourlyWeather"
                 style="color: #5e5e5e; text-align: center; list-style: none">

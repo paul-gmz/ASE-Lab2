@@ -18,6 +18,7 @@ export class WeatherComponent implements OnInit {
   hourlyWeather = [];
   errorMsg: string;
   showWeatherData = false;
+  showHourlyData = false;
 
   constructor(private weatherService: WeatherService) {}
   ngOnInit(): void {}
@@ -43,14 +44,19 @@ export class WeatherComponent implements OnInit {
 
     console.log(this.location);
     this.weatherService.getCurrentWeather(this.location).subscribe(
-      cwd => (this.currentWeather = cwd),
+      cwd => {
+        this.currentWeather = cwd;
+        this.showWeatherData = true;
+      },
       error => (this.errorMsg = error as any)
     );
     this.weatherService.getHourlyWeather(this.location).subscribe(
-      data => (this.extractHourly(data)),
+      data => {
+        this.extractHourly(data);
+        this.showHourlyData = true;
+      },
       error => (this.errorMsg = error as any)
     );
-    this.showWeatherData = true;
   }
 
   extractHourly(data) {
