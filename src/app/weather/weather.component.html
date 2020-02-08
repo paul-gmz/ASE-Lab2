@@ -7,21 +7,27 @@
     <div class="card-body bg-light">
       <div class="container-fluid">
         <div class="row mt-2">
-          <div class="col-sm">
+          <div class="col-sm" style="flex-basis: 10%;">
+          </div>
+
+          <div class="col-sm" style="flex-basis: 30%;">
             <label>City:
               <input [(ngModel)]="city" type="text" name="city"/>
             </label>
           </div>
 
-          <div class="col-sm">
+          <div class="col-sm" style="flex-basis: 30%;">
             <label>State:
               <input [(ngModel)]="state" type="text" name="state"/>
             </label>
           </div>
 
-          <div class="col-sm">
+          <div class="col-sm" style="flex-basis: 20%;">
             <button (click)="getWeather()" type="button" class="btn btn-primary">Search
             </button>
+          </div>
+
+          <div class="col-sm" style="flex-basis: 10%;">
           </div>
         </div>
 
