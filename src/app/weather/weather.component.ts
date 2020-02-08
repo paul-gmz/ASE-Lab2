@@ -20,7 +20,6 @@ export class WeatherComponent implements OnInit {
   errorMsg: string;
   showCurrentWeather = false;
   showHourlyWeather = false;
-  forecastDate = '';
 
   constructor(private weatherService: WeatherService, public datepipe: DatePipe) {}
   ngOnInit(): void {}

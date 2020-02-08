@@ -5,10 +5,10 @@ export interface CurrentWeather {
   temp_max: number;
   pressure: number;
   humidity: number;
-  description: string;
-  image: string;
+  description: string; // weather description
+  image: string; // weather icon name
 }
 
 export interface HourlyWeather {
-  weather: [];
+  weather: CurrentWeather[];
 }
