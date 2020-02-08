@@ -40,6 +40,7 @@ export class WeatherComponent implements OnInit {
         this.location = this.state;
       }
     }
+
     // clear inputs
     this.city = '';
     this.state = '';
