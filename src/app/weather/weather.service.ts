@@ -8,7 +8,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 export class WeatherService {
   private currentUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
   private hourlyUrl = 'http://api.openweathermap.org/data/2.5/forecast?q=';
-  private urlParams = ',US&units=imperial&appid=';
+  private urlParams = '&units=imperial&appid='; // additional params
   private apiKey = 'ad549223cd4887aaf3b228e8a368abdc';
   constructor(private http: HttpClient) {}
 
@@ -16,7 +16,11 @@ export class WeatherService {
     const url = `${this.currentUrl}${location}${this.urlParams}${this.apiKey}`;
     return this.http.get<CurrentWeather>(url).pipe(
       map(res => {
-        return res['main'];
+        const weather = res['main'];
+        weather.image = res['weather'][0].main;
+        weather.description = res['weather'][0].description;
+        weather.location = res['name'];
+        return weather;
       }),
       tap(data => console.log('All Data' + JSON.stringify(data))),
       catchError(this.handleError)
@@ -24,7 +28,6 @@ export class WeatherService {
   }
 
   getHourlyWeather(location: string): Observable<HourlyWeather[]> {
-    const hourly = [];
     const url = `${this.hourlyUrl}${location}${this.urlParams}${this.apiKey}`;
     return this.http.get<HourlyWeather[]>(url).pipe(
       map(res => {

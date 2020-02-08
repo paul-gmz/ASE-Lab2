@@ -5,11 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { WeatherComponent } from './weather/weather.component';
+import { DatePipe } from '@angular/common'
 
 @NgModule({
   declarations: [TopNavbarComponent, WeatherComponent],
   imports: [BrowserModule, FormsModule, HttpClientModule],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [TopNavbarComponent]
 })
 export class AppModule {}

@@ -2,17 +2,35 @@
   margin-top: 3em;
 }
 
+.col-sm {
+  display: flex;
+  justify-content: center;
+}
+
 .card-header {
   color: white;
   background-color: #343a40;
 }
 
+input {
+  margin-top: 3px;
+}
+
+button {
+  margin: 0;
+}
+
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  max-width: 50em;
 }
 
 .card-body {
   font-size: 15px;
+}
+
+.bg-light {
+  min-height: 20em;
 }
 
 .center {
@@ -20,10 +38,14 @@
 }
 
 .card-forecast {
-  background-color: white;
-  width: 625px;
+  background-color: #f8f9fa;
+  width: 35em;
   border-radius: 5px;
   margin: auto auto 20px;
+}
+
+table {
+  margin-bottom: 0;
 }
 
 ul {
@@ -52,12 +74,27 @@ ul {
   width: 30%;
 }
 
+.middle-right {
+  width: 25%;
+  text-align: left;
+}
+
 .right {
-  width: 40%;
+  width: 20%;
+  text-align: left;
 }
 
 .list-header {
   padding-top: 20px;
+}
+
+.td-left {
+  padding-left: 12%;
+  width: 60%;
+}
+
+.td-right {
+  width: 18%;
 }
 
 .image {
@@ -77,6 +114,9 @@ li {
   border-radius: 5px;
   background: rgba(189, 232, 255, 0.2);
   margin: 10px;
+  color: #5e5e5e;
+  text-align: center;
+  list-style: none;
 }
 
 
