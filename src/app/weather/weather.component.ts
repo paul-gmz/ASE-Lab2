@@ -73,6 +73,10 @@ export class WeatherComponent implements OnInit {
   }
 
   extractHourly(data) {
+    // clear previous results and hide hourly div while it repopulates
+    this.showHourlyWeather = false;
+    this.hourlyWeather = [];
+
     let date;
     // free api only gives forecast in three hour increments for next day, display first 5
     for (let i = 0; i < 5; i++) {
