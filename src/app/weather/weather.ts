@@ -7,6 +7,7 @@ export interface CurrentWeather {
   humidity: number;
   description: string; // weather description
   image: string; // weather icon name
+  location: string;
 }
 
 export interface HourlyWeather {

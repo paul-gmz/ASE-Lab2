@@ -32,7 +32,6 @@ export class WeatherComponent implements OnInit {
 
     if (this.city !== '') {
       this.location = this.city;
-      this.city = '';
 
     } else {
       if (this.state.length === 2) { // translate abbreviations to full state name
@@ -40,16 +39,18 @@ export class WeatherComponent implements OnInit {
       } else {
         this.location = this.state;
       }
-      this.state = '';
     }
+    // clear inputs
+    this.city = '';
+    this.state = '';
 
     this.weatherService.getCurrentWeather(this.location).subscribe(
       cwd => {
         this.currentWeather = cwd;
 
         // add corresponding image based on description
-        if (this.currentWeather.image === 'Clouds') {
-          this.currentWeather.image = 'cloudy.png';
+        if (this.currentWeather.image === 'Clear') {
+          this.currentWeather.image = 'sunny.png';
         } else if (this.currentWeather.image === 'Rain' || this.currentWeather.image === 'Drizzle') {
           this.currentWeather.image = 'rain.png';
         } else if (this.currentWeather.image === 'Thunderstorm') {
@@ -57,9 +58,11 @@ export class WeatherComponent implements OnInit {
         } else if (this.currentWeather.image === 'Snow') {
           this.currentWeather.image = 'snow.png';
         } else {
-          this.currentWeather.image = 'sunny.png';
+          this.currentWeather.image = 'cloudy.png';
         }
         this.showCurrentWeather = true;
+        // get proper location from api
+        this.location = this.currentWeather.location;
       },
       error => (this.errorMsg = error as any)
     );
@@ -70,19 +73,21 @@ export class WeatherComponent implements OnInit {
       },
       error => (this.errorMsg = error as any)
     );
+
+    // clear previous results and hide display divs
+    this.showHourlyWeather = false;
+    this.showCurrentWeather = false;
+    this.hourlyWeather = [];
+    this.currentWeather = undefined;
   }
 
   extractHourly(data) {
-    // clear previous results and hide hourly div while it repopulates
-    this.showHourlyWeather = false;
-    this.hourlyWeather = [];
-
     let date;
     // free api only gives forecast in three hour increments for next day, display first 5
     for (let i = 0; i < 5; i++) {
       this.hourlyWeather.push({ time: data[i].dt_txt,
         weather: data[i].weather[0].description,
-        image: 'sunny.png',
+        image: 'cloudy.png',
         temp: data[i].main.temp,
         feels_like: data[i].main.feels_like,
         humidity: data[i].main.humidity
@@ -94,8 +99,8 @@ export class WeatherComponent implements OnInit {
       this.hourlyWeather[i].time = this.datepipe.transform(date, 'h a');
 
       // add corresponding image name
-      if (data[i].weather[0].main === 'Clouds') {
-        this.hourlyWeather[i].image = 'cloudy.png';
+      if (data[i].weather[0].main === 'Clear') {
+        this.hourlyWeather[i].image = 'sunny.png';
       } else if (data[i].weather[0].main === 'Rain' || data[i].weather[0].main === 'Drizzle') {
         this.hourlyWeather[i].image = 'rain.png';
       } else if (data[i].weather[0].main === 'Thunderstorm') {
