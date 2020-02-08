@@ -2,17 +2,35 @@
   margin-top: 3em;
 }
 
+.col-sm {
+  display: flex;
+  justify-content: center;
+}
+
 .card-header {
   color: white;
   background-color: #343a40;
 }
 
+input {
+  margin-top: 3px;
+}
+
+button {
+  margin: 0;
+}
+
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  max-width: 50em;
 }
 
 .card-body {
   font-size: 15px;
+}
+
+.bg-light {
+  min-height: 25em;
 }
 
 .center {
@@ -47,17 +65,17 @@ ul {
 }
 
 .left {
-  width: 20%;
+  width: 25%;
   border-right: #004ca6 solid 1px;
   background: rgba(182, 221, 244, 0.49);
 }
 
 .middle {
-  width: 33%;
+  width: 30%;
 }
 
 .middle-right {
-  width: 27%;
+  width: 25%;
   text-align: left;
 }
 
@@ -67,7 +85,7 @@ ul {
 }
 
 .list-header {
-  padding-top: 30px;
+  padding-top: 20px;
 }
 
 .image {
@@ -87,6 +105,9 @@ li {
   border-radius: 5px;
   background: rgba(189, 232, 255, 0.2);
   margin: 10px;
+  color: #5e5e5e;
+  text-align: center;
+  list-style: none;
 }
 
 

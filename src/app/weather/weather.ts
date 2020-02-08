@@ -10,6 +10,5 @@ export interface CurrentWeather {
 }
 
 export interface HourlyWeather {
-  main: CurrentWeather;
   weather: [];
 }

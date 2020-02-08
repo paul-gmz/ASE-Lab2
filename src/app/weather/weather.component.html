@@ -4,37 +4,36 @@
       Weather Search
     </div>
 
-    <div class="card-body bg-light" style="min-height: 25em;">
+    <div class="card-body bg-light">
       <div class="container-fluid">
         <div class="row mt-2">
-          <div class="col-sm" style="display: flex; justify-content: center;">
+          <div class="col-sm">
             <label>City:
-              <input [(ngModel)]="city" type="text" name="city" style="margin-top: 3px;"/>
+              <input [(ngModel)]="city" type="text" name="city"/>
             </label>
           </div>
 
-          <div class="col-sm" style="display: flex; justify-content: center;">
+          <div class="col-sm">
             <label>State:
-              <input [(ngModel)]="state" type="text" name="state" style="margin-top: 3px"/>
+              <input [(ngModel)]="state" type="text" name="state"/>
             </label>
           </div>
 
-          <div class="col-sm" style="display: flex; justify-content: center;">
-            <button (click)="getWeather()" id="buttonSerach" type="button"
-                    style="margin:0" class="btn btn-primary">Search
+          <div class="col-sm">
+            <button (click)="getWeather()" type="button" class="btn btn-primary">Search
             </button>
           </div>
         </div>
 
-        <div class="card text-white bg-dark mb-3 center" style="max-width: 50em; margin-top: 25px" *ngIf="showWeatherData">
+        <div class="card text-white bg-dark mb-3 center" *ngIf="showCurrentWeather" style="margin-top: 25px;">
           <div class="card-header center">
 
             <div class="row-list" style="width: 30em">
-              <div class="column-list" style="width: 80%; font-size: 20px; padding-top: 25px">
+              <div class="column-list" style="width: 70%; font-size: 20px; padding-top: 25px">
                   Current Weather in {{ location }}
               </div>
 
-              <div class="column-list" style="width: 20%;">
+              <div class="column-list" style="width: 30%;">
                 <div class="image" style="text-align: center">
                   <img src="assets/images/{{currentWeather.image}}" alt="forecast image"> <br>
                   {{currentWeather.description}}
@@ -75,17 +74,17 @@
           </div>
 
           <div class="card-header center" style="font-size: 20px">
-            Forecast for {{forecastDate}}
+            Forecast
           </div>
 
-          <div class="card-forecast" *ngIf="showHourlyData">
+          <div class="card-forecast" *ngIf="showHourlyWeather">
           <ul style="width: 34em; margin: auto;">
-            <li *ngFor="let forecast of hourlyWeather"
-                style="color: #5e5e5e; text-align: center; list-style: none">
+            <li *ngFor="let forecast of hourlyWeather">
 
               <div class="row-list">
                 <div class="column-list left">
                   <div class="list-header">
+                    <b>{{forecast.date}}</b> <br>
                     <b>{{forecast.time}}</b>
                   </div>
                 </div>
